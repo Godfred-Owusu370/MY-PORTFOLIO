@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GODFRED PROJECT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow: hidden; 
+            background-color: #020617;
+        }
+
+        .hero-section {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        #slider-container {
+            transition: transform 1s cubic-bezier(0.85, 0, 0.15, 1);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            transform: scale(1.3) rotate(2deg);
+            transition: transform 2s cubic-bezier(0.2, 0, 0.2, 1);
+            filter: brightness(0.4);
+        }
+
+        .active .parallax-bg {
+            transform: scale(1) rotate(0deg);
+            filter: brightness(0.6);
+        }
+
+        /* Staggered Content Animations */
+        .content-box > * {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .active .content-box > *:nth-child(1) { transition-delay: 0.3s; opacity: 1; transform: translateY(0); }
+        .active .content-box > *:nth-child(2) { transition-delay: 0.5s; opacity: 1; transform: translateY(0); }
+        .active .content-box > *:nth-child(3) { transition-delay: 0.7s; opacity: 1; transform: translateY(0); }
+        .active .content-box > *:nth-child(4) { transition-delay: 0.9s; opacity: 1; transform: translateY(0); }
+
+        .hover-glow {
+            transition: all 0.4s ease;
+            cursor: default;
+        }
+        .hover-glow:hover {
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+            transform: scale(1.02);
+            letter-spacing: 0.05em;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 30px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .nav-dot.active {
+            background: #3b82f6;
+            height: 50px;
+            box-shadow: 0 0 15px #3b82f6;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(59, 130, 246, 0.5);
+            transform: translateY(-10px);
+        }
+    </style>
+</head>
+<body class="text-white">
+
+    <!-- Header -->
+    <header class="fixed top-0 w-full z-[100] px-6 md:px-12 py-6 flex justify-between items-center bg-transparent">
+        <div class="flex items-center gap-2 group cursor-pointer">
+            <div class="bg-blue-600 p-2 rounded-xl group-hover:rotate-90 transition-transform duration-500">
+                <i data-lucide="layers" class="w-5 h-5 text-white"></i>
+            </div>
+            <span class="text-2xl font-black tracking-tighter uppercase">PROJECTS <span class="text-blue-500 italic">G</span></span>
+        </div>
+        
+        <button class="px-6 py-2 border border-white/20 rounded-full font-bold text-xs hover:bg-white hover:text-black transition-all uppercase tracking-widest">
+            PROJECT OVERVIEW
+        </button>
+    </header>
+
+    <!-- Navigation Dots -->
+    <div id="dots-container" class="fixed right-10 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3">
+    </div>
+
+    <!-- Main Wrapper -->
+    <div id="slider-container" class="w-full">
+        
+        <!-- Slide 1: Origin -->
+        <section class="hero-section active">
+            <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="container mx-auto px-6 text-center content-box">
+                <span class="text-blue-500 font-black tracking-[0.5em] uppercase text-xs mb-6 block">01 // THE START</span>
+                <h1 class="text-7xl md:text-[10rem] font-black mb-8 leading-none hover-glow">GODFRED'S<br>PROJECTS.</h1>
+                <p class="max-w-xl mx-auto text-slate-400 text-lg mb-10 font-light">A curated showcase of engineering and digital craftsmanship.</p>
+                <button onclick="goToSlide(1)" class="bg-blue-600 px-10 py-5 rounded-full font-black text-sm uppercase tracking-widest hover:scale-110 transition-transform shadow-lg shadow-blue-600/20">Explore Lab</button>
+            </div>
+        </section>
+
+        <!-- Slide 2: Line Follower -->
+        <section class="hero-section">
+            <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="container mx-auto px-6 content-box">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center text-left">
+                    <div>
+                        <span class="text-blue-500 font-black tracking-widest uppercase text-xs mb-4 block">02 // ROBOTICS</span>
+                        <h2 class="text-5xl md:text-7xl font-black mb-6 hover-glow leading-tight">LINE FOLLOW<br>AUTONOMY.</h2>
+                        <p class="text-slate-400 mb-8 leading-relaxed">Autonomous navigation system utilizing infrared sensor arrays and custom PID control loops for high-speed precision.</p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="glass-card p-6 rounded-2xl animate-float">
+                                <i data-lucide="cpu" class="text-blue-500 mb-3"></i>
+                                <h4 class="font-bold">ESP32 SoC</h4>
+                            </div>
+                            <div class="glass-card p-6 rounded-2xl animate-float" style="animation-delay: 0.5s">
+                                <i data-lucide="zap" class="text-emerald-500 mb-3"></i>
+                                <h4 class="font-bold">Real-time I/O</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden md:block glass-card h-[450px] rounded-3xl relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-600/30 to-transparent"></div>
+                        <div class="w-full h-full flex items-center justify-center">
+                             <i data-lucide="bot" class="w-32 h-32 text-blue-500/20"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Web Systems -->
+        <section class="hero-section">
+            <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="container mx-auto px-6 text-center content-box">
+                <span class="text-blue-500 font-black tracking-widest uppercase text-xs mb-4 block">03 // WEB ARCHITECTURE</span>
+                <h2 class="text-6xl md:text-9xl font-black mb-8 italic tracking-tighter hover-glow text-transparent" style="-webkit-text-stroke: 1px white;">HIGH PERFORMANCE</h2>
+                <div class="flex justify-center gap-12 md:gap-20 py-10">
+                    <div class="text-center">
+                        <p class="text-5xl font-black text-cyan-400">8K</p>
+                        <p class="text-[10px] font-bold uppercase tracking-widest mt-2">UX Clarity</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-5xl font-black text-cyan-400">0.4s</p>
+                        <p class="text-[10px] font-bold uppercase tracking-widest mt-2">Load Speed</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: AI Logic -->
+        <section class="hero-section">
+            <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1506318137071-a8e063b4b519?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="container mx-auto px-6 content-box">
+                <div class="flex flex-col md:flex-row gap-16 items-center">
+                    <div class="flex-1 text-left">
+                        <span class="text-blue-500 font-black tracking-widest uppercase text-xs mb-4 block">04 // INTELLIGENCE</span>
+                        <h2 class="text-5xl md:text-8xl font-black mb-6 leading-none">NEURAL<br>FLOW.</h2>
+                        <ul class="space-y-6 mt-10">
+                            <li class="flex items-center gap-4 border-b border-white/10 pb-4"><i data-lucide="check-circle-2" class="text-blue-500"></i> Object Recognition Engine</li>
+                            <li class="flex items-center gap-4 border-b border-white/10 pb-4"><i data-lucide="check-circle-2" class="text-blue-500"></i> Predictive Data Modeling</li>
+                            <li class="flex items-center gap-4 border-b border-white/10 pb-4"><i data-lucide="check-circle-2" class="text-blue-500"></i> Natural Language Processing</li>
+                        </ul>
+                    </div>
+                    <div class="flex-1 w-full grid grid-cols-2 gap-4">
+                        <div class="h-40 glass-card rounded-2xl flex items-center justify-center"><i data-lucide="brain-circuit" class="w-10 h-10 opacity-20"></i></div>
+                        <div class="h-40 glass-card rounded-2xl mt-12 flex items-center justify-center"><i data-lucide="network" class="w-10 h-10 opacity-20"></i></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Connect -->
+        <section class="hero-section">
+            <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&q=80&w=2000');"></div>
+            <div class="container mx-auto px-6 text-center content-box">
+                <span class="text-blue-500 font-black tracking-widest uppercase text-xs mb-4 block">05 // FINALE</span>
+                <h2 class="text-7xl md:text-9xl font-black mb-12 hover-glow uppercase italic">The Lab</h2>
+                <div class="flex flex-wrap justify-center gap-8 mb-16">
+                    <a href="https://github.com/Godfred-Owusu370" class="text-xl font-bold hover:text-blue-500 transition-colors">GITHUB</a>
+                    <a href="https://linkedin.com/in/godfred-owusu" class="text-xl font-bold hover:text-blue-500 transition-colors">LINKEDIN</a>
+                    <a href="https://godfredowusu370.com" class="text-xl font-bold hover:text-blue-500 transition-colors">MAIL</a>
+                </div>
+                <p class="text-slate-500 text-[10px] uppercase tracking-[0.4em]">&copy; 2026 GODFRED'S PROJECTS</p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        let currentSlide = 0;
+        const totalSlides = 5;
+        let isScrolling = false;
+        const container = document.getElementById('slider-container');
+        const dotsContainer = document.getElementById('dots-container');
+        const sections = document.querySelectorAll('.hero-section');
+
+        // Generate exactly 5 dots
+        for(let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = `nav-dot ${i === 0 ? 'active' : ''}`;
+            dot.onclick = () => goToSlide(i);
+            dotsContainer.appendChild(dot);
+        }
+
+        const dots = document.querySelectorAll('.nav-dot');
+
+        function updateSlider() {
+            container.style.transform = `translateY(-${currentSlide * 100}vh)`;
+            
+            sections.forEach((s, i) => {
+                if(i === currentSlide) s.classList.add('active');
+                else s.classList.remove('active');
+            });
+
+            dots.forEach((dot, i) => {
+                if(i === currentSlide) dot.classList.add('active');
+                else dot.classList.remove('active');
+            });
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+        }
+
+        // Wheel Scroll
+        window.addEventListener('wheel', (e) => {
+            if (isScrolling) return;
+            isScrolling = true;
+            if (e.deltaY > 0 && currentSlide < totalSlides - 1) currentSlide++;
+            else if (e.deltaY < 0 && currentSlide > 0) currentSlide--;
+            updateSlider();
+            setTimeout(() => { isScrolling = false; }, 1200);
+        });
+
+        // Touch
+        let touchStart = 0;
+        window.addEventListener('touchstart', (e) => touchStart = e.touches[0].clientY);
+        window.addEventListener('touchend', (e) => {
+            let touchEnd = e.changedTouches[0].clientY;
+            if (touchStart - touchEnd > 50 && currentSlide < totalSlides - 1) currentSlide++;
+            else if (touchEnd - touchStart > 50 && currentSlide > 0) currentSlide--;
+            updateSlider();
+        });
+
+        // Initial setup
+        window.onload = () => {
+            updateSlider();
+        };
+    </script>
+</body>
+</html>
